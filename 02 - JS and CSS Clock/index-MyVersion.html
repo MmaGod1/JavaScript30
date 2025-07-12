@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <title>Digital and Analog Clocks</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-image: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+        color: white;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Orbitron", sans-serif;
+      }
+
+      #todays-date {
+        font-size: 40px;
+        position: absolute;
+        top: 5%;
+        background-image: linear-gradient(
+          106.9deg,
+          rgba(255, 94, 77, 1) 60.9%,
+          rgba(255, 154, 0, 1) 122.3%
+        );
+        padding: 2px 5px;
+        border-radius: 10px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .digital-clock {
+        background-image: linear-gradient(145deg, #232526, #414345);
+        width: 200px;
+        height: 50px;
+        text-align: center;
+        align-content: center;
+        border-radius: 10px;
+        font-size: 30px;
+      }
+
+      .analog-clock {
+        width: 300px;
+        height: 300px;
+        border: 10px solid #34495e;
+        border-radius: 50%;
+        position: relative;
+        margin-top: 50px;
+      }
+
+      .clock-face {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #00bcd4;
+        border-radius: 50%;
+      }
+
+      .hand {
+        position: absolute;
+        background-color: #ecf0f1;
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        transform-origin: bottom center;
+        transform: translate(-50%, -100%);
+      }
+
+      .hour-hand {
+        width: 6px;
+        height: 60px;
+        z-index: 3;
+      }
+
+      .min-hand {
+        width: 4px;
+        height: 90px;
+        z-index: 2;
+      }
+
+      .second-hand {
+        width: 2px;
+        height: 100px;
+        background-color: #ff3b3f;
+        z-index: 1;
+      }
+
+      .center-point {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background-color: #f39c12;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p id="todays-date">Today's Date:</p>
+    <div class="digital-clock">
+      <p>
+        <span id="hours-digits">HH</span> :
+        <span id="minutes-digits">MM</span> :
+        <span id="seconds-digits">SS</span>
+      </p>
+    </div>
+
+    <div class="analog-clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+        <div class="center-point"></div>
+      </div>
+    </div>
+
+    <script>
+      const hoursHand = document.querySelector(".hour-hand");
+      const minutesHand = document.querySelector(".min-hand");
+      const secondsHand = document.querySelector(".second-hand");
+
+      function clock() {
+        const date = new Date();
+        const seconds = date.getSeconds();
+        const minutes = date.getMinutes();
+        const hours = date.getHours();
+
+        /* Degrees Calculations:
+      
+         Minute Hand:
+         360 degrees / 60 minutes = 6 degrees per minute
+         6 degrees / 60 seconds = 0.1 degrees per second
+         → seconds * 0.1 gives smooth movement of minute hand
+      
+         Hour Hand:
+         360 degrees / 12 hours = 30 degrees per hour
+         30 degrees / 60 minutes = 0.5 degrees per minute
+         → minutes * 0.5 gives smooth movement of hour hand
+      */
+
+        const secondsDegree = seconds * 6;
+        const minutesDegree = minutes * 6 + seconds * 0.1;
+        const hoursDegree = (hours % 12) * 30 + minutes * 0.5;
+
+        const day = String(date.getDate()).padStart(2, "0");
+
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // 0-based, so +1 → 01 to 12
+
+        const year = date.getFullYear();
+
+        const fullDate = `${day} - ${month} - ${year}`;
+
+        document.getElementById("todays-date").textContent = `${fullDate}`;
+        console.log(fullDate);
+
+        // Analog Clock
+        secondsHand.style.transform = `translate(-50%, -100%) rotate(${secondsDegree}deg)`;
+        minutesHand.style.transform = `translate(-50%, -100%) rotate(${minutesDegree}deg)`;
+        hoursHand.style.transform = `translate(-50%, -100%) rotate(${hoursDegree}deg)`;
+
+        // Digital Clock
+        document.getElementById("seconds-digits").textContent = String(
+          seconds,
+        ).padStart(2, "0");
+
+        document.getElementById("minutes-digits").textContent = String(
+          minutes,
+        ).padStart(2, "0");
+
+        document.getElementById("hours-digits").textContent = String(
+          hours,
+        ).padStart(2, "0");
+      }
+
+      clock();
+      setInterval(clock, 1000);
+    </script>
+  </body>
+</html>
