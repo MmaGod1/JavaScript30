@@ -1,3 +1,5 @@
 Day 1: What I Learned
 
-Today, I started my 30-day challenge by building a small project using the <audio> tag for the first time. I learned how to use the HTML5 audio element to play sounds and how to work with custom data- attributes to link keys with sounds. I also explored how to detect and respond to keyboard events using key codes, and got introduced to the <kbd> tag for representing keyboard keys semantically. Adding sound effects and CSS transitions to key presses made the project interactive and really fun to build.
+Today I built my first project using the HTML5 <audio> element. I learned how to play sounds and use custom data- attributes to link keys with their audio files.
+I figured out keyboard event detection with key codes and discovered the <kbd> tag for showing keyboard keys. Adding sound effects and CSS transitions to the key presses made it interactive and fun to build.
+Good start to the 30-day challenge.
