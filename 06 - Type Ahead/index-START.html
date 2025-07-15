@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      // uswd https://corsproxy.io prefix cause the given link wasnt accessible
+      const endpoint =
+        "https://corsproxy.io/?https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/cities.json";
+
+      const cities = [];
+
+      fetch(endpoint)
+        .then((res) => res.json())
+        .then((data) => {
+          cities.push(...data);
+        });
+
+      const searchInput = document.querySelector(".search");
+      const suggestions = document.querySelector(".suggestions");
+
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function findSearchedInput(event) {
+        const searchTerm = event.target.value.trim();
+
+        if (!searchTerm) {
+          suggestions.innerHTML = `
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    `;
+          return;
+        }
+
+        const regex = new RegExp(searchTerm, "gi");
+
+        const filteredCities = cities.filter((place) => {
+          return regex.test(place.city) || regex.test(place.state);
+        });
+
+        const html = filteredCities
+          .map((place) => {
+            return `
+        <li>
+          <span class="name">${place.city}, ${place.state}</span>
+          <span class="population">${numberWithCommas(place.population)}</span>
+        </li>
+      `;
+          })
+          .join("");
+
+        suggestions.innerHTML = html || "<li>No matches found</li>";
+      }
+
+      searchInput.addEventListener("input", findSearchedInput);
+    </script>
+  </body>
+</html>
