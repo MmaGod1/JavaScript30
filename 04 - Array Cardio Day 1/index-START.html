@@ -136,8 +136,8 @@
       // Sort the people alphabetically by last name
 
       const sortByLastName = people.sort((firstPerson, nextPerson) => {
-        const [lastName1, firstName1] = firstPerson.split(", ");
-        const [lastName2, firstName2] = nextPerson.split(", ");
+        const [lastName1] = firstPerson.split(", ");
+        const [lastName2] = nextPerson.split(", ");
 
         return lastName1.localeCompare(lastName2);
       });
