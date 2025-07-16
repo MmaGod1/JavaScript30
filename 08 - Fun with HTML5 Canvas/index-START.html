@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Console Tricks!</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "hugo", age: 8 },
+      ];
+
+      function makeGreen() {
+        const p = document.querySelector("p");
+        p.style.color = "#BADA55";
+        p.style.fontSize = "50px";
+      }
+
+      // Regular
+      console.log("Starting...");
+
+      // Interpolated
+      const greet = "Hi there!";
+      console.log("A variable that greets: %s", greet);
+
+      // Styled
+      const hobbies = "font-size: 20px; background-color: purple; color: white";
+
+      console.log("%c My hobbies a 📖 and dancing", hobbies);
+
+      // warning!
+      console.warn("Dont let me catch you snitching!!");
+
+      // Error :|
+      console.error("Two strikes! Only one remaining!!");
+
+      // Info
+      console.info(
+        "console has many log methods that could be called on it. I'm just learning that today, and its fun 😁 ",
+      );
+
+      // Testing
+      const string = "Case sensitive";
+      const newString = string.toUpperCase();
+
+      console.assert(string === string.toLowerCase(), "Not so true.");
+
+      console.log(newString);
+
+      console.assert(
+        "CASE SENSITIVE" === newString,
+        "If not, this would be displayed",
+      );
+
+      // clearing
+      // console.clear()
+
+      // Viewing DOM Elements
+      const pTag = document.getElementsByTagName("p");
+
+      console.dir(pTag);
+
+      // Grouping together
+      dogs.forEach((dog) => {
+        console.group(`${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old.`);
+        console.groupEnd("Thats it");
+      });
+
+      // counting
+      console.count();
+      console.count();
+      console.count("myFunction");
+      console.count("anotherFunction");
+      console.count("myFunction");
+      console.countReset("default");
+      console.count();
+
+      // timing
+      console.time("Starts here");
+      fetch(
+        "https://corsproxy.io/?https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/cities.json",
+      )
+        .then((data) => data.json())
+        .then((data) => {
+          console.timeEnd("fetching data");
+          console.log(data);
+        });
+    </script>
+  </body>
+</html>
