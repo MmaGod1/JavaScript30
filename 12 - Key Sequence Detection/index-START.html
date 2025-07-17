@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+   <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <script>
+      const keysEntered = [];
+      const secreteCode = "skablam";
+
+      function keyLogs(event) {
+        console.log(event.key);
+
+        keysEntered.push(event.key);
+
+        keysEntered.splice(-secreteCode - 1, keysEntered .length- secreteCode.length);
+        
+        if (keysEntered.join("").includes(secreteCode)) {
+          console.log("DOOR OPENED");
+          cornify_add();
+        }
+      
+         console.log(keysEntered);
+      }
+      window.addEventListener("keyup", keyLogs);
+      
+    </script>
+  </body>
+</html>
