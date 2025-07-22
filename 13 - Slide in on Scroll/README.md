@@ -6,7 +6,7 @@ I decided to use this scroll calculation instead of Wes Bos' version because it 
     const imageMidpoint = sliderImage.offsetTop + sliderImage.height / 2;
     const imageBottom = sliderImage.offsetTop + sliderImage.height;
     const scrollBottom = window.scrollY + window.innerHeight;
-
+```
 
 ### What I learned:
 
